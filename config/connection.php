@@ -23,5 +23,3 @@ class Database {
     }
 }   
 
-$DB = new Database();
-$connection = $DB->getConnection();

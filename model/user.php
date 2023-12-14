@@ -6,12 +6,15 @@ class User
     private $fullname;
     private $email;
     private $password;
+    private $connection;
 
     public function __construct($fullname,$email,$password)
     {
         $this->fullname=$fullname;
         $this->email  =$email;
         $this->password=$password;
+        $DB = new Database();
+        $this->connection = $DB->getConnection();
     }
 
     public function getFullname()
@@ -43,17 +46,39 @@ class User
     {
         $this->password = $password;
     }
+
+    public function create()
+    {
+        $query = "INSERT INTO `user`(`fullname`, `email`,`password`) VALUES (?, ?, ?)";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param('sss', $this->fullname, $this->email, $this->password);
+        $result = $stmt->execute();
+    
+       
+         return $result;
+    } 
+
+    public function view()
+    {
+        $query = "SELECT * FROM `user`";
+    }
+
 }
 
 
-function signup($fullname,$email,$password){
-            
-    $query = "INSERT INTO `user`(`fullname`, `email`,`password`) VALUES (?, ?, ?)";
-    $stmt = mysqli_prepare($connection, $query);
-    mysqli_stmt_bind_param($stmt, 'sss', $fullname, $email, $password,$connection);
-    $result = mysqli_stmt_execute($stmt);
 
-   
-     return $result;
-} 
+
+function login($email, $password, $connection) {
+    $query = "SELECT * FROM `user` WHERE email = '$email' ";
+    $result = mysqli_query($connection, $query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $user = mysqli_fetch_assoc($result);
+        if (password_verify($password, $user['password'])) {
+            return $user;
+        }
+    }
+
+    return false;
+}
 ?>

@@ -1,8 +1,5 @@
 
-<?php
 
-require __DIR__ .'../../config/connection.php';
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +35,7 @@ require __DIR__ .'../../config/connection.php';
             <h2 class="fw-bold mb-5">Sign up now</h2>
 
           
-            <form action="../controller/signUp.php" method="post">
+            <form action="../controller/AuthController.php" method="post">
                 <div class="form-outline mb-4">
                 <label class="form-label d-flex flex-row" for="form3Example3">Full name</label>
                 <input type="text" id="name" class="form-control" name="fullname" />
