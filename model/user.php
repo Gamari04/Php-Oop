@@ -60,25 +60,40 @@ class User
 
     public function view()
     {
-        $query = "SELECT * FROM `user`";
+        $query = "SELECT * FROM `user` WHERE email = '$this->email' ";
+        $result = mysqli_query($this->connection, $query);
+        $row = $result->fetch_assoc();
+        // $users = [];
+
+        // if ($result && mysqli_num_rows($result) > 0) {
+        //     while ($userRow = mysqli_fetch_assoc($result)) {
+        //         if (password_verify($this->password, $userRow['password'])) {
+        //                          return $userRow;
+        //                  }
+        //         $users[] = $userRow;
+        //     }
+        // }
+
+        return $row;
     }
+    
 
 }
 
 
 
 
-function login($email, $password, $connection) {
-    $query = "SELECT * FROM `user` WHERE email = '$email' ";
-    $result = mysqli_query($connection, $query);
+// function login($email, $password, $connection) {
+//     $query = "SELECT * FROM `user` WHERE email = '$email' ";
+//     $result = mysqli_query($connection, $query);
 
-    if ($result && mysqli_num_rows($result) > 0) {
-        $user = mysqli_fetch_assoc($result);
-        if (password_verify($password, $user['password'])) {
-            return $user;
-        }
-    }
+//     if ($result && mysqli_num_rows($result) > 0) {
+//         $user = mysqli_fetch_assoc($result);
+//         if (password_verify($password, $user['password'])) {
+//             return $user;
+//         }
+//     }
 
-    return false;
-}
+//     return false;
+// }
 ?>

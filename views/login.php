@@ -26,7 +26,7 @@
             <h2 class="fw-bold mb-5">Sign in </h2>
 
           
-            <form action="../controller/login.php" method="post">
+            <form action="../controller/AuthController.php" method="post">
             
               <!-- Email input -->
               <div class="form-outline mb-4">
